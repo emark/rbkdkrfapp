@@ -5,10 +5,10 @@ volumes:
 services:
   speedtest:
     container_name: speedtest
-    image: ghcr.io/librespeed/speedtest:latest
+    image: s
     restart: always
     environment:
-      MODE: standalone
+      MODE: frontend
       #TITLE: "LibreSpeed"
       TELEMETRY: "true"
       ENABLE_ID_OBFUSCATION: "true"
@@ -21,3 +21,6 @@ services:
       #WEBPORT: 8080
     ports:
       - "80:8080" # webport mapping (host:container)
+    volumes:
+        - $PWD/speedtest/servers.json:/servers.json
+        - $PWD/speedtest/db/:/database

@@ -5,7 +5,7 @@ if [ "$1" = "stop" ]; then
 	docker compose -f app.compose.yml -p rbmdkrfinalapp down
 else
 	echo "Start create an application..."
-	docker compose -f app.compose.yml -p rbmdkrfinalapp up -d 
+	docker compose -f app.compose.yml -p rbmdkrfinalapp up -d
 fi
 
 echo "...complete"
