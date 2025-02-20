@@ -8,16 +8,16 @@ COPY speedtest/results/*.php /speedtest/results/
 COPY speedtest/results/*.ttf /speedtest/results/
 COPY speedtest/*.js /speedtest/
 COPY speedtest/favicon.ico /speedtest/
-COPY servers.json /servers.json
+# COPY servers.json /servers.json
 COPY speedtest/docker/*.php /speedtest/
 COPY speedtest/docker/entrypoint.sh /
 
 # Prepare default environment variables
 ENV TITLE=LibreSpeed
 ENV MODE=frontend
-ENV TELEMETRY=false
-ENV ENABLE_ID_OBFUSCATION=false
-ENV REDACT_IP_ADDRESSES=false
+ENV TELEMETRY=true
+ENV ENABLE_ID_OBFUSCATION=true
+ENV REDACT_IP_ADDRESSES=true
 ENV WEBPORT=8080
 
 STOPSIGNAL SIGWINCH
