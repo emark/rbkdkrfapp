@@ -1,6 +1,7 @@
 FROM bitnami/php-fpm:latest
 
-RUN install_packages apache2 && install_packages sqlite3 && install_packages libapache2-mod-php8.2
+RUN install_packages apache2 && install_packages sqlite3 \
+&& install_packages libapache2-mod-php8.2 && install_packages php-sqlite3
 RUN mkdir -p /speedtest/
 
 COPY speedtest/backend/ /speedtest/backend
@@ -17,7 +18,7 @@ ENV TITLE=LibreSpeed
 ENV MODE=frontend
 ENV TELEMETRY=true
 ENV ENABLE_ID_OBFUSCATION=true
-ENV REDACT_IP_ADDRESSES=true
+ENV REDACT_IP_ADDRESSES=false
 ENV WEBPORT=8080
 
 STOPSIGNAL SIGWINCH
