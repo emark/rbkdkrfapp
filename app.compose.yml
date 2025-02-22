@@ -20,8 +20,28 @@ services:
       # IPINFO_APIKEY: "your api key"
       # DISTANCE: "km"
       # WEBPORT: 8080
-    ports:
-      - "80:8080"
     volumes:
-        - $PWD/data/servers.json:/servers.json
-        - $PWD/data/db/:/database
+      - $PWD/data/servers.json:/servers.json
+      - $PWD/data/db/:/database
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.speedtest.rule=Host(`st.158.160.5.175.nip.io`)"
+    networks: 
+      - web
+
+  proxy:
+    container_name: proxy
+    image: traefik:v2.11
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    restart: unless-stopped
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks: 
+      - web
+
+networks:
+    web:
+      name: proxy_web
