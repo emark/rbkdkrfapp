@@ -28,6 +28,10 @@ services:
       - "traefik.http.routers.speedtest.rule=Host(`st.158.160.5.175.nip.io`)"
     networks: 
       - web
+    logging:
+      driver: "fluentd"
+      options:
+        tag: speedtest
 
   proxy:
     container_name: proxy
@@ -41,6 +45,10 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks: 
       - web
+    logging:
+      driver: "fluentd"
+      options:
+        tag: proxy
 
 networks:
     web:

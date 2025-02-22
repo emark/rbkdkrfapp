@@ -2,6 +2,7 @@ version: "3"
 services:
   fluentd:
     image: sviridenkomaxim/rebrain:fluentd
+    container_name: fluentd
     volumes:
       - ./data/fluentd/conf:/fluentd/etc
     ports:
@@ -25,7 +26,7 @@ services:
 
   kibana:
     image: kibana:7.13.1
-
+    container_name: kibana
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.kibana.middlewares=auth"
