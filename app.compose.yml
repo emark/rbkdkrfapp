@@ -45,3 +45,4 @@ services:
 networks:
     web:
       name: proxy_web
+      external: true
