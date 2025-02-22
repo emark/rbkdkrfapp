@@ -25,13 +25,13 @@ services:
 
   kibana:
     image: kibana:7.13.1
-    deploy:        
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.kibana.middlewares=auth"
-        - "traefik.http.middlewares.auth.basicauth.users=rebrainme:$$apr1$$PGGQJIeM$$Bbpyd/WmYWGIrN5nhG3Bd/"
-        - "traefik.http.routers.kibana.rule=Host(`kibana.158.160.5.175.nip.io`)"
-        - "traefik.http.services.kibana-service.loadbalancer.server.port=5601"
+
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=rebrainme:$$apr1$$PGGQJIeM$$Bbpyd/WmYWGIrN5nhG3Bd/"
+      - "traefik.http.routers.kibana.rule=Host(`kibana.158.160.5.175.nip.io`)"
+      - "traefik.http.services.kibana-service.loadbalancer.server.port=5601"
     networks:
             - traefik
 
