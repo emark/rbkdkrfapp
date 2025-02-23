@@ -25,13 +25,13 @@ services:
       - $PWD/data/db/:/database
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.speedtest.rule=Host(`st.158.160.5.175.nip.io`)"
+      - "traefik.http.routers.speedtest.rule=Host(`st.158.160.51.168.nip.io`)"
     networks: 
       - web
-    logging:
-      driver: "fluentd"
-      options:
-        tag: speedtest
+        #   logging:
+        #driver: "fluentd"
+        #options:
+        #tag: speedtest
 
   proxy:
     container_name: proxy
@@ -45,12 +45,12 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
     networks: 
       - web
-    logging:
-      driver: "fluentd"
-      options:
-        tag: proxy
+        #logging:
+        # driver: "fluentd"
+        #options:
+        #tag: proxy
 
 networks:
     web:
       name: proxy_web
-      external: true
+      #      external: true

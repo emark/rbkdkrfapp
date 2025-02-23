@@ -1,11 +1,8 @@
 FROM bitnami/php-fpm:latest
 
-RUN install_packages apache2 \
-&& install_packages default-mysql-server \
-&& install_packages libapache2-mod-php8.2 \
-&& install_packages php-mysql \
+RUN install_packages apache2 && install_packages sqlite3 \
+&& install_packages libapache2-mod-php8.2 && install_packages php-sqlite3 \
 && install_packages php-gd
-RUN service mariadb start
 RUN mkdir -p /speedtest/
 
 COPY speedtest/backend/ /speedtest/backend
@@ -29,4 +26,3 @@ STOPSIGNAL SIGWINCH
 
 EXPOSE ${WEBPORT}
 CMD ["bash","/entrypoint.sh"]
-
