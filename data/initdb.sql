@@ -19,10 +19,14 @@ SET time_zone = "+00:00";
 -- Table structure for table `speedtest_users`
 --
 
-CREATE USER 'user'@'%' IDENTIFIED BY 'pass';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
+/*DROP DATABASE `speedtest_telemetry`;*/
+/*DROP USER 'user'@'localhost';*/
+
+CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
 
 CREATE DATABASE `speedtest_telemetry`;
+USE `speedtest_telemetry`;
 
 CREATE TABLE `speedtest_users` (
   `id` int(11) NOT NULL,
