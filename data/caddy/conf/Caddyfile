@@ -2,3 +2,7 @@
 #	respond "Helo world!"
 	reverse_proxy speedtest:8080
 }
+
+kibana.158.160.6.252.nip.io:80 {
+	reverse_proxy kibana:5601
+}
