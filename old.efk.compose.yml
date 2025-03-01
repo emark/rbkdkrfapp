@@ -9,7 +9,7 @@ services:
       - "24224:24224"
       - "24224:24224/udp"  
     networks:
-      - proxy
+            - traefik
 
   elasticsearch:
     image: elasticsearch:7.13.1
@@ -18,24 +18,25 @@ services:
       - "discovery.type=single-node" 
       - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
     volumes:
-      - es:/usr/share/elasticsearch/data
+      - ./data/es:/usr/share/elasticsearch/data
     ports:
       - "9200:9200"
     networks:
-      - proxy
+            - traefik
 
   kibana:
     image: kibana:7.13.1
     container_name: kibana
-    ports:
-      - 5601:5601
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana.middlewares=auth"
+      - "traefik.http.middlewares.auth.basicauth.users=rebrainme:$$apr1$$PGGQJIeM$$Bbpyd/WmYWGIrN5nhG3Bd/"
+      - "traefik.http.routers.kibana.rule=Host(`kibana.158.160.5.175.nip.io`)"
+      - "traefik.http.services.kibana-service.loadbalancer.server.port=5601"
     networks:
-      - proxy
-
-volumes:
-        es:
+            - traefik
 
 networks:
-  proxy:
+  traefik:
     name: proxy_web
     attachable: true

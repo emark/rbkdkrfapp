@@ -18,12 +18,15 @@ services:
       DB_PASSWORD: pass
       DB_HOSTNAME: mysql_container
       DB_NAME: speedtest_telemetry
-      #    ports:
-      #- 80:8080
     volumes:
       - $PWD/data/servers.json:/servers.json
     networks: 
       - web
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: speedtest
 
   mysql:
      image: mysql:8.0
@@ -38,6 +41,11 @@ services:
        - db:/var/lib/mysql
      networks:
        - web
+     logging:
+       driver: "fluentd"
+       options:
+         fluentd-address: localhost:24224
+         tag: mysql
 
   proxy:
      image: caddy
@@ -47,8 +55,6 @@ services:
        - NET_ADMIN
      ports:
        - "80:80"
-       - "443:443"
-       - "443:443/udp"
      volumes:
        - $PWD/data/caddy/conf:/etc/caddy
        - $PWD/data/caddy/site:/srv
@@ -56,6 +62,11 @@ services:
        - caddy_config:/config
      networks:
        - web
+     logging:
+       driver: "fluentd"
+       options:
+         fluentd-address: localhost:24224
+         tag: proxy
 
 volumes:
   db:
@@ -65,4 +76,4 @@ volumes:
 networks:
     web:
       name: proxy_web
-      #      external: true
+      external: true
