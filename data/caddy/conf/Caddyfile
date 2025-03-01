@@ -1,4 +1,4 @@
 :80 {
+#	respond "Helo world!"
 	reverse_proxy speedtest:8080
-#	php_fastcgi speedtest:9000
 }
