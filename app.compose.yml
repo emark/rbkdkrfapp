@@ -18,8 +18,8 @@ services:
       DB_PASSWORD: pass
       DB_HOSTNAME: mysql_container
       DB_NAME: speedtest_telemetry
-    ports:
-      - 80:8080
+      #    ports:
+      #- 80:8080
     volumes:
       - $PWD/data/servers.json:/servers.json
     networks: 
@@ -38,8 +38,29 @@ services:
        - db:/var/lib/mysql
      networks:
        - web
+
+  proxy:
+     image: caddy
+     container_name: proxy
+     restart: unless-stopped
+     cap_add:
+       - NET_ADMIN
+     ports:
+       - "80:80"
+       - "443:443"
+       - "443:443/udp"
+     volumes:
+       - $PWD/data/caddy/conf:/etc/caddy
+       - $PWD/data/caddy/site:/srv
+       - caddy_data:/data
+       - caddy_config:/config
+     networks:
+       - web
+
 volumes:
   db:
+  caddy_data:
+  caddy_config:
 
 networks:
     web:
