@@ -1,7 +1,4 @@
 version: '3.7'
-volumes:
-  database:
-
 services:
   speedtest:
     container_name: speedtest
@@ -10,45 +7,39 @@ services:
     restart: always
     environment:
       MODE: frontend
-      # TITLE: "LibreSpeed"
+      TITLE: "LibreSpeed"
       TELEMETRY: "true"
       ENABLE_ID_OBFUSCATION: "true"
       REDACT_IP_ADDRESSES: "false"
-      # PASSWORD:
-      # EMAIL:
-      # DISABLE_IPINFO: "false"
-      # IPINFO_APIKEY: "your api key"
-      # DISTANCE: "km"
-      # WEBPORT: 8080
+      WEBPORT: 8080
+
+      DB_TYPE: mysql
+      DB_USERNAME: user
+      DB_PASSWORD: pass
+      DB_HOSTNAME: mysql_container
+      DB_NAME: speedtest_telemetry
+    ports:
+      - 80:8080
     volumes:
       - $PWD/data/servers.json:/servers.json
-      - $PWD/data/db/:/database
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.speedtest.rule=Host(`st.158.160.51.168.nip.io`)"
     networks: 
       - web
-        #   logging:
-        #driver: "fluentd"
-        #options:
-        #tag: speedtest
 
-  proxy:
-    container_name: proxy
-    image: traefik:v2.11
-    command: --api.insecure=true --providers.docker
-    ports:
-      - "80:80"
-      - "8080:8080"
-    restart: unless-stopped
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    networks: 
-      - web
-        #logging:
-        # driver: "fluentd"
-        #options:
-        #tag: proxy
+  mysql:
+     image: mysql:8.0
+     container_name: mysql_container
+     environment:
+       MYSQL_ROOT_PASSWORD: secret
+       MYSQL_DATABASE: myShema
+     ports:
+       - "3306:3306"
+     volumes:
+       - $PWD/data:/home
+       - db:/var/lib/mysql
+     networks:
+       - web
+volumes:
+  db:
 
 networks:
     web:

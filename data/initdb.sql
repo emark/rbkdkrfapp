@@ -22,8 +22,8 @@ SET time_zone = "+00:00";
 /*DROP DATABASE `speedtest_telemetry`;*/
 /*DROP USER 'user'@'localhost';*/
 
-CREATE USER 'user'@'localhost' IDENTIFIED BY 'pass';
-GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost' WITH GRANT OPTION;
+CREATE USER 'user'@'%' IDENTIFIED BY 'pass';
+GRANT ALL PRIVILEGES ON *.* TO 'user'@'%' WITH GRANT OPTION;
 
 CREATE DATABASE `speedtest_telemetry`;
 USE `speedtest_telemetry`;
