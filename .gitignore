@@ -1,4 +1,3 @@
 /data/speedtest/
-/data/db/
-/data/es
-/db
+/data/fluentd/log
+

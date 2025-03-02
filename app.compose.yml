@@ -26,7 +26,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: speedtest
+        tag: speedtest.access
 
   mysql:
      image: mysql:8.0
@@ -45,7 +45,7 @@ services:
        driver: "fluentd"
        options:
          fluentd-address: localhost:24224
-         tag: mysql
+         tag: mysql.access
 
   proxy:
      image: caddy
@@ -66,7 +66,7 @@ services:
        driver: "fluentd"
        options:
          fluentd-address: localhost:24224
-         tag: proxy
+         tag: proxy.access
 
 volumes:
   db:

@@ -5,6 +5,7 @@ services:
     container_name: fluentd
     volumes:
       - ./data/fluentd/conf:/fluentd/etc
+      - ./data/fluentd/log:/fluentd/log
     ports:
       - "24224:24224"
       - "24224:24224/udp"  
@@ -38,7 +39,7 @@ services:
       driver: "fluentd"
       options:
         fluentd-address: localhost:24224
-        tag: kibana
+        tag: kibana.access
 
 volumes:
         es:
