@@ -26,11 +26,19 @@ services:
 
   kibana:
     image: kibana:7.13.1
-    container_name: kibana
+    container_name: kibana_container
     ports:
       - 5601:5601
     networks:
       - proxy
+    depends_on: 
+        fluentd:
+                condition: service_started
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: kibana
 
 volumes:
         es:
