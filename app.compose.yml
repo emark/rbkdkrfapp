@@ -1,4 +1,5 @@
-version: '3.7'
+name: app
+
 services:
   speedtest:
     container_name: speedtest
@@ -16,7 +17,7 @@ services:
       DB_TYPE: mysql
       DB_USERNAME: user
       DB_PASSWORD: pass
-      DB_HOSTNAME: mysql_container
+      DB_HOSTNAME: mysql
       DB_NAME: speedtest_telemetry
     volumes:
       - $PWD/data/servers.json:/servers.json
@@ -30,7 +31,7 @@ services:
 
   mysql:
      image: mysql:8.0
-     container_name: mysql_container
+     container_name: mysql
      environment:
        MYSQL_ROOT_PASSWORD: secret
        MYSQL_DATABASE: myShema
