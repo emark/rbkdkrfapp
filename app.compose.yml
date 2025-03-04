@@ -42,6 +42,7 @@ services:
        - db:/var/lib/mysql
      networks:
        - web
+     restart: always
      logging:
        driver: "fluentd"
        options:
